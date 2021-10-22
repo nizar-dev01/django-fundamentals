@@ -25,5 +25,8 @@ uwsgi --ini ~/baby-django/app_uwsgi.ini
 
 # Complete the configuration
 mkdir ~/app/vassals
-uwsgi --emperor ~/app/vassals --uid www-data --gid www-data
+# uwsgi --emperor ~/app/vassals --uid www-data --gid www-data
+sudo cp ~/baby-django/emperor.uwsgi.service /etc/systemd/system
 
+sudo systemctl enable emperor.uwsgi.service
+sudo systemctl start emperor.uwsgi.service

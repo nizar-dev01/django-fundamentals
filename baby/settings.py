@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,10 +26,8 @@ SECRET_KEY = 'django-insecure-9!55f^&h8!#p$o8$l$1hff!)1y8h^w9*belqrk-7nf#ed*=-o5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "public-server-ec2",
-    "app-lb-tf-1607778237.us-east-1.elb.amazonaws.com"
-]
+ALLOWED_HOSTS = ["public-server-ec2",
+                 "app-lb-tf-1607778237.us-east-1.elb.amazonaws.com"]
 
 
 # Application definition
@@ -121,6 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -13,6 +13,7 @@ python3 -m venv ~/app;
 source ~/app/bin/activate
 pip3 install django
 git clone https://github.com/nizar-dev01/baby-django.git
+sed -i 's/***-lb-dns-***/newly-generated-dns-name/g' ~/baby-django/server.conf
 sudo cp ~/baby-django/server.conf /etc/nginx/sites-available
 sudo ln -s /etc/nginx/sites-available/server.conf /etc/nginx/sites-enabled
 

@@ -1,33 +1,25 @@
 #!/bin/bash
-sudo apt update -y
-sudo apt-get update && \
-sudo apt-get install \
-    build-essential \
-    git \
-    python3 \
-    python3-pip \
-    python3-venv \
-    nginx -y \
-&& pip3 install uwsgi
-python3 -m venv ~/app;
-source ~/app/bin/activate
+
+# Install packages
+apt-get update &&  apt-get install build-essential git python3 python3-pip python3-venv nginx -y && pip3 install uwsgi
+
+# Install Python deps
+python3 -m venv /home/ubuntu/app && source /home/ubuntu/app/bin/activate
 pip3 install django
-git clone https://github.com/nizar-dev01/baby-django.git ~/baby-django
-sed -i 's/***-lb-dns-***/newly-generated-dns-name/g' ~/baby-django/server.conf
-sudo cp ~/baby-django/server.conf /etc/nginx/sites-available
-sudo ln -s /etc/nginx/sites-available/server.conf /etc/nginx/sites-enabled
 
-sudo sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 128;/g' /etc/nginx/nginx.conf
-sudo service nginx restart
-# Test server
-# uwsgi --socket ~/baby-django/app.sock --module app.wsgi --chmod-socket=666
-# Init the actual server
-uwsgi --ini ~/baby-django/app_uwsgi.ini
+# Install application
+git clone https://github.com/nizar-dev01/baby-django.git /home/ubuntu/baby-django
 
-# Complete the configuration
-mkdir ~/app/vassals
-# uwsgi --emperor ~/app/vassals --uid www-data --gid www-data
-sudo cp ~/baby-django/emperor.uwsgi.service /etc/systemd/system
+# Config Nginx
+cp /home/ubuntu/baby-django/server.conf /etc/nginx/sites-available && ln -s /etc/nginx/sites-available/server.conf /etc/nginx/sites-enabled
+sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 128;/g' /etc/nginx/nginx.conf
 
-sudo systemctl enable emperor.uwsgi.service
-sudo systemctl start emperor.uwsgi.service
+# Config uwsgi
+uwsgi --ini /home/ubuntu/baby-django/app_uwsgi.ini
+mkdir /home/ubuntu/app/vassals
+
+# Register and start uwsgi service
+cp /home/ubuntu/baby-django/emperor.uwsgi.service /etc/systemd/system
+systemctl enable emperor.uwsgi.service
+systemctl start emperor.uwsgi.service
+service nginx restart

@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block page_title %}
+    Page Not Found
+{% endblock page_title %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static "404.css" %}">
+{% endblock style %}
+
+{% block content %}
+    <div class="not-found-text">
+        <h1>We're Sorry!</h1>
+        <p>But we couldn't find that page!</p>
+    </div>
+{% endblock content %}

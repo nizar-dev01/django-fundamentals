@@ -1,0 +1,14 @@
+.alert-text {
+    text-align: center;
+    margin-top: 300px;
+}
+.alert-text h1 {
+    font-size: 60px;
+    color: #390281;
+    font-weight: 900;
+}
+.alert-text p {
+    font-size: 30px;
+    color: #000;
+    font-weight: bold;
+}

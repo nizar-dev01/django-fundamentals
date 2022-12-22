@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block page_title %}
+    Thank You
+{% endblock page_title %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static "alert.css" %}">
+{% endblock style %}
+
+{% block content %}
+    <div class="alert-text">
+        <h1>Thank You!</h1>
+        <p>Thank you for submitting the form. We look forward to working with you.</p>
+    </div>
+{% endblock content %}

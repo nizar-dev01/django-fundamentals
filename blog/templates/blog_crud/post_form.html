@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block page_title %}
+    {{ title }}
+{% endblock page_title %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static "form/style.css" %}">
+{% endblock style %}
+
+{% block content %}
+    <form action="/posts/{{ action }}" method="POST" autocomplete="do-not-autofill" enctype="multipart/form-data">
+        <h1 class="title">{{ title }}</h1>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-control">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <button type="submit">
+            Submit
+        </button>
+    </form>
+{% endblock content %}
